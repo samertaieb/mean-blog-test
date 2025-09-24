@@ -1,0 +1,34 @@
+<div class="card" *ngIf="loaded">
+  <h2>{{ isNew ? 'Créer un article' : 'Éditer l\'article' }}</h2>
+
+  <form (ngSubmit)="save()" #f="ngForm" style="display:flex; flex-direction:column; gap:12px;">
+    <div class="grid">
+      <input [(ngModel)]="title" name="title" placeholder="Titre" required />
+      <input [(ngModel)]="imageUrl" name="imageUrl" placeholder="Image URL (optionnel)" />
+      <input [(ngModel)]="tags" name="tags" placeholder="Tags (séparés par des virgules)" />
+    </div>
+
+    <textarea
+      [(ngModel)]="content"
+      name="content"
+      rows="10"
+      placeholder="Contenu"
+      required
+    ></textarea>
+
+    <div style="display:flex; gap:8px;">
+      <button type="submit" [disabled]="!f.valid">
+        {{ isNew ? 'Créer' : 'Enregistrer' }}
+      </button>
+
+      <button
+        type="button"
+        *ngIf="!isNew && canDelete()"
+        (click)="del()"
+        style="border-color:#5a2828"
+      >
+        Supprimer
+      </button>
+    </div>
+  </form>
+</div>

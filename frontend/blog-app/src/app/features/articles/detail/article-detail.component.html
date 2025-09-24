@@ -1,0 +1,39 @@
+<ng-container *ngIf="article() as a">
+  <div class="card">
+    <h2>{{ a.title }}</h2>
+    <img *ngIf="a.imageUrl" [src]="a.imageUrl" style="max-width:100%; border-radius:12px; margin:8px 0;" />
+    <p style="white-space:pre-wrap">{{ a.content }}</p>
+
+    <div style="display:flex; gap:8px; align-items:center; margin-top:12px;">
+      <div class="badge" *ngFor="let t of a.tags">{{ t }}</div>
+      <span class="spacer"></span>
+      <a [routerLink]="['/articles', a._id, 'edit']" *ngIf="canEdit(a)">Éditer</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Commentaires</h3>
+
+    <form *ngIf="auth.user() && isValidId(); else commentDisabled"
+          (ngSubmit)="_addComment()">
+      <textarea [(ngModel)]="comment"
+                name="comment"
+                rows="3"
+                placeholder="Votre commentaire..."></textarea>
+      <button type="submit" style="margin-top:8px;" [disabled]="!comment.trim()">
+        Envoyer
+      </button>
+    </form>
+
+    <ng-template #commentDisabled>
+      <div class="alert" *ngIf="!auth.user()">Connectez-vous pour commenter.</div>
+      <div class="alert" *ngIf="auth.user() && !isValidId()">
+        Enregistrez l’article avant d’ajouter des commentaires.
+      </div>
+    </ng-template>
+
+    <div style="margin-top:12px">
+      <app-comments-thread [nodes]="comments()"></app-comments-thread>
+    </div>
+  </div>
+</ng-container>

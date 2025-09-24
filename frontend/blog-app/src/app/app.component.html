@@ -1,0 +1,19 @@
+<header>
+  <div class="container">
+    <nav>
+<a routerLink="/" (click)="resetFilters($event)">Articles</a>
+      <a routerLink="/articles/new">Créer</a>
+      <a routerLink="/admin/users" *ngIf="auth.isRole('admin')">Admin</a>
+      <span class="spacer"></span>
+      <span *ngIf="auth.user() as u" class="badge"
+        >{{ u.username }} ({{ u.role }})</span
+      >
+      <a routerLink="/login" *ngIf="!auth.user()">Login</a>
+      <button (click)="logout()" *ngIf="auth.user()">Logout</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 16px">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,16 @@
+<div class="grid" style="margin-bottom:12px;">
+  <input [(ngModel)]="q"   name="q"   placeholder="Recherche texte..." (keyup.enter)="applyFilters()">
+  <input [(ngModel)]="tag" name="tag" placeholder="Filtre tag..."      (keyup.enter)="applyFilters()">
+  <button (click)="applyFilters()">Filtrer</button>
+  <button type="button" (click)="reset()">Réinitialiser</button>
+</div>
+
+<div class="grid" style="gap:16px;">
+  <div class="card" *ngFor="let a of items()">
+    <h3><a [routerLink]="['/articles', a._id]">{{ a.title }}</a></h3>
+    <div class="badge" *ngFor="let t of a.tags">{{ t }}</div>
+    <p style="opacity:.7; margin-top:8px;">
+      par {{ a.author.username }} • {{ a.createdAt | date:'short' }}
+    </p>
+  </div>
+</div>

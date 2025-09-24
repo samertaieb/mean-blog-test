@@ -1,0 +1,12 @@
+<div class="thread">
+  <ng-container *ngFor="let n of nodes">
+    <div class="comment card">
+      <div style="font-weight:600">{{n.author.username}}</div>
+      <div style="opacity:.8; font-size:13px;">{{n._id | slice:-6}} • {{n.createdAt | date:'short'}}</div>
+      <p style="white-space: pre-wrap; margin-top:8px;">{{n.content}}</p>
+    </div>
+    <div class="replies" *ngIf="n.replies?.length">
+      <app-comments-thread [nodes]="n.replies"></app-comments-thread>
+    </div>
+  </ng-container>
+</div>

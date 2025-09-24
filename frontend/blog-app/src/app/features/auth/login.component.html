@@ -1,0 +1,13 @@
+<div class="card" style="max-width:420px; margin:40px auto;">
+  <h2>Connexion</h2>
+  <form (ngSubmit)="submit()">
+    <div class="grid">
+      <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required>
+      <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" required>
+    </div>
+    <div style="margin-top:12px; display:flex; gap:8px;">
+      <button type="submit">Se connecter</button>
+      <span *ngIf="error" class="alert error">{{error}}</span>
+    </div>
+  </form>
+</div>
